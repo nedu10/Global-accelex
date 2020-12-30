@@ -1,6 +1,6 @@
 // character.entity.ts
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { RootEntity } from './base.entity';
 import { LocationEntity } from './location.entity';
 import { CharacterEpisodeEntity } from './character_episode.entity';
 
@@ -16,7 +16,7 @@ export enum CharacterGender {
 }
 
 @Entity({ name: 'characters' })
-export class CharacterEntity extends BaseEntity {
+export class CharacterEntity extends RootEntity {
   @Column({ type: 'varchar', length: 300 })
   firstName: string;
 

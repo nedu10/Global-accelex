@@ -1,11 +1,11 @@
 // location.entity.ts
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { RootEntity } from './base.entity';
 import { CharacterEntity } from './character.entity';
 import { EpisodeEntity } from './episode.entity';
 
 @Entity({ name: 'character_episodes' })
-export class CharacterEpisodeEntity extends BaseEntity {
+export class CharacterEpisodeEntity extends RootEntity {
   @ManyToOne((type) => CharacterEntity, (character) => character.episodes, {
     eager: false,
     cascade: false,

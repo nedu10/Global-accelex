@@ -1,10 +1,10 @@
 // location.entity.ts
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { BaseEntity } from './base.entity';
+import { RootEntity } from './base.entity';
 import { CharacterEntity } from './character.entity';
 
 @Entity({ name: 'locations' })
-export class LocationEntity extends BaseEntity {
+export class LocationEntity extends RootEntity {
   @Column({ type: 'varchar' })
   name: string;
 

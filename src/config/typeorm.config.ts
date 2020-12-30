@@ -18,5 +18,5 @@ export const typeormConfig: TypeOrmModuleOptions = {
     entitiesDir: 'src/entity',
   },
   synchronize: process.env.TYPEORM_SYNC || dbConfig.synchronize,
-  autoLoadEntities: true,
+  // autoLoadEntities: true,
 };

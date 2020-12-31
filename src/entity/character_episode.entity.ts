@@ -1,6 +1,6 @@
 // location.entity.ts
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { RootEntity } from './base.entity';
+import { Entity, ManyToOne, JoinColumn } from 'typeorm';
+import { RootEntity } from './root.entity';
 import { CharacterEntity } from './character.entity';
 import { EpisodeEntity } from './episode.entity';
 

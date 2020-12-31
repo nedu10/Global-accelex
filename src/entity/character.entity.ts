@@ -1,6 +1,6 @@
 // character.entity.ts
 import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { RootEntity } from './base.entity';
+import { RootEntity } from './root.entity';
 import { LocationEntity } from './location.entity';
 import { CharacterEpisodeEntity } from './character_episode.entity';
 
@@ -24,13 +24,13 @@ export class CharacterEntity extends RootEntity {
   lastName: string;
 
   @Column({ type: 'enum', enum: CharacterStatus })
-  status: CharacterStatus;
+  status: string;
 
   @Column({ type: 'varchar', length: 300 })
   stateOfOrigin: string;
 
   @Column({ type: 'enum', enum: CharacterGender })
-  gender: CharacterGender;
+  gender: string;
 
   @ManyToOne((type) => LocationEntity, (location) => location.characters, {
     eager: false,

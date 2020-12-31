@@ -1,6 +1,6 @@
 // character.entity.ts
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
-import { RootEntity } from './base.entity';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { RootEntity } from './root.entity';
 import { EpisodeEntity } from './episode.entity';
 
 @Entity({ name: 'comments' })

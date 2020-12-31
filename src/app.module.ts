@@ -6,9 +6,15 @@ import { typeormConfig } from './config/typeorm.config';
 import { CharacterModule } from './character/character.module';
 import { SeederModule } from './seeder/seeder.module';
 import { LocationModule } from './location/location.module';
+import { EpisodeModule } from './episode/episode.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(typeormConfig), CharacterModule, SeederModule, LocationModule],
+  imports: [
+    TypeOrmModule.forRoot(typeormConfig),
+    CharacterModule,
+    LocationModule,
+    EpisodeModule,
+  ],
   providers: [AppService],
 })
 export class AppModule {}

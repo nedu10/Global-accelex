@@ -1,8 +1,8 @@
 // location.entity.ts
-import { Entity, Column, OneToMany } from 'typeorm';
+import { Entity, Column, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { RootEntity } from './root.entity';
-import { CharacterEpisodeEntity } from './character_episode.entity';
 import { CommentEntity } from './comment.entity';
+import { CharacterEntity } from './character.entity';
 
 @Entity({ name: 'episodes' })
 export class EpisodeEntity extends RootEntity {
@@ -15,15 +15,8 @@ export class EpisodeEntity extends RootEntity {
   @Column({ type: 'varchar' })
   episodeCode: string;
 
-  @OneToMany(
-    (type) => CharacterEpisodeEntity,
-    (character_episode) => character_episode.episode,
-    {
-      eager: false,
-      nullable: true,
-    },
-  )
-  characters: CharacterEpisodeEntity[];
+  @ManyToMany(() => CharacterEntity, (character) => character.episodes)
+  characters: CharacterEntity[];
 
   @OneToMany((type) => CommentEntity, (comment) => comment.episode, {
     eager: false,

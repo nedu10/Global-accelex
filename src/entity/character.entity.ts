@@ -1,8 +1,15 @@
 // character.entity.ts
-import { Entity, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import {
+  Entity,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 import { RootEntity } from './root.entity';
 import { LocationEntity } from './location.entity';
-import { CharacterEpisodeEntity } from './character_episode.entity';
+import { EpisodeEntity } from './episode.entity';
 
 export enum CharacterStatus {
   ACTIVE = 'ACTIVE',
@@ -39,13 +46,9 @@ export class CharacterEntity extends RootEntity {
   @JoinColumn({ referencedColumnName: 'id', name: 'location' })
   location: LocationEntity;
 
-  @OneToMany(
-    (type) => CharacterEpisodeEntity,
-    (character_episode) => character_episode.character,
-    {
-      eager: false,
-      nullable: true,
-    },
-  )
-  episodes: CharacterEpisodeEntity[];
+  @ManyToMany(() => EpisodeEntity, (episode) => episode.characters, {
+    eager: true,
+  })
+  @JoinTable()
+  episodes: EpisodeEntity[];
 }

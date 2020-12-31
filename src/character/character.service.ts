@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDto } from 'src/dto/create-character.dto';
 import { CharacterEntity } from 'src/entity/character.entity';
-import { CharacterEpisodeEntity } from 'src/entity/character_episode.entity';
 import { EpisodeEntity } from 'src/entity/episode.entity';
 import { LocationEntity } from 'src/entity/location.entity';
 import { CharacterRepository } from 'src/repository/character.repository';
@@ -17,9 +16,6 @@ export class CharacterService {
     private characterRepo: CharacterRepository,
 
     private readonly logger: Logger,
-
-    @InjectRepository(CharacterEpisodeEntity)
-    private characterEpisodeRepo: Repository<CharacterEpisodeEntity>,
 
     @InjectRepository(LocationRepository)
     private locationRepo: LocationRepository,
@@ -69,10 +65,13 @@ export class CharacterService {
       new_character.stateOfOrigin = stateOfOrigin;
       new_character.gender = gender;
       new_character.location = get_location;
+      new_character.episodes = [get_episode];
 
       const save_character = await new_character.save();
 
-      await this.create_character_episode(save_character, get_episode);
+      get_episode.characters = [new_character];
+
+      await get_episode.save();
 
       return {
         status_code: 201,
@@ -81,6 +80,8 @@ export class CharacterService {
       };
     } catch (error) {
       this.logger.error('Create Character Service Failed ' + error);
+      console.log(error);
+
       return {
         status_code: error.code || 500,
         status: 'error',
@@ -93,11 +94,7 @@ export class CharacterService {
   async get_all_character(): Promise<object> {
     try {
       const all_characters = await this.characterRepo.find({
-        join: [
-          {
-            alias: '',
-          },
-        ],
+        relations: ['location', 'episodes'],
       });
       return {
         status_code: 200,
@@ -116,6 +113,29 @@ export class CharacterService {
     }
   }
 
+  async get_single_character(character_id: number): Promise<object> {
+    try {
+      const single_characters = await this.characterRepo.findOne({
+        relations: ['location', 'episodes'],
+        where: { id: character_id },
+      });
+      return {
+        status_code: 200,
+        status: 'success',
+        message: 'Character Successfully Fetched',
+        results: single_characters,
+      };
+    } catch (error) {
+      this.logger.error('Get Single Character Service Failed ' + error);
+      return {
+        status_code: error.code || 500,
+        status: 'error',
+        message: error.message || 'System Error',
+        error: error.stack || error,
+      };
+    }
+  }
+
   async get_location(location_id: number): Promise<LocationEntity> {
     return this.locationRepo.findOne(location_id);
   }
@@ -124,13 +144,13 @@ export class CharacterService {
     return this.episoderepo.findOne(episode_id);
   }
 
-  async create_character_episode(
-    character: CharacterEntity,
-    episode: EpisodeEntity,
-  ): Promise<CharacterEpisodeEntity> {
-    let new_character_episode = new CharacterEpisodeEntity();
-    new_character_episode.character = character;
-    new_character_episode.episode = episode;
-    return await new_character_episode.save();
-  }
+  //   async create_character_episode(
+  //     character: CharacterEntity,
+  //     episode: EpisodeEntity,
+  //   ): Promise<CharacterEpisodeEntity> {
+  //     let new_character_episode = new CharacterEpisodeEntity();
+  //     new_character_episode.character = character;
+  //     new_character_episode.episode = episode;
+  //     return await new_character_episode.save();
+  //   }
 }

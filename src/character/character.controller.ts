@@ -2,6 +2,8 @@ import {
   Body,
   Controller,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   UsePipes,
   ValidationPipe,
@@ -24,5 +26,12 @@ export class CharacterController {
   @Get('')
   get_all_character(): Promise<object> {
     return this.characterService.get_all_character();
+  }
+
+  @Get(':character_id')
+  get_single_character(
+    @Param('character_id', ParseIntPipe) character_id: number,
+  ): Promise<object> {
+    return this.characterService.get_single_character(character_id);
   }
 }

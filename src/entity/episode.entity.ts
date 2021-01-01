@@ -19,7 +19,6 @@ export class EpisodeEntity extends RootEntity {
   characters: CharacterEntity[];
 
   @OneToMany((type) => CommentEntity, (comment) => comment.episode, {
-    eager: false,
     nullable: true,
   })
   comments: CommentEntity[];

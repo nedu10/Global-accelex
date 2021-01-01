@@ -12,7 +12,6 @@ export class CommentEntity extends RootEntity {
   ipAddressLocation: string;
 
   @ManyToOne((type) => EpisodeEntity, (episode) => episode.comments, {
-    eager: false,
     cascade: false,
   })
   @JoinColumn({ referencedColumnName: 'id', name: 'episode' })

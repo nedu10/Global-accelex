@@ -34,4 +34,11 @@ export class EpisodeController {
   ): Promise<object> {
     return this.episodeService.get_single_episode(episode_id);
   }
+
+  @Get('/character/:character_id')
+  get_character_episode(
+    @Param('character_id', ParseIntPipe) character_id: number,
+  ): Promise<object> {
+    return this.episodeService.get_character_episode(character_id);
+  }
 }

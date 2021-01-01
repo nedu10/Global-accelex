@@ -15,7 +15,6 @@ export class LocationEntity extends RootEntity {
   longitude: number;
 
   @OneToMany((type) => CharacterEntity, (character) => character.location, {
-    eager: false,
     nullable: true,
   })
   characters: CharacterEntity[];

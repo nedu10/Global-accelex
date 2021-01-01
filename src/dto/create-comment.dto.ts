@@ -1,12 +1,11 @@
 import { IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateEpisodeDto {
+export class CreateCommentDto {
   @ApiProperty()
   @IsString()
-  name: string;
+  comment: string;
 
   @ApiProperty()
-  @IsString()
-  releaseDate: string;
+  episode_id: string;
 }

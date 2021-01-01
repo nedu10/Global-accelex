@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateCharacterDto } from 'src/dto/create-character.dto';
-import { CharacterEntity } from 'src/entity/character.entity';
+import { CharacterEntity, CharacterSort } from 'src/entity/character.entity';
 import { EpisodeEntity } from 'src/entity/episode.entity';
 import { LocationEntity } from 'src/entity/location.entity';
 import { CharacterRepository } from 'src/repository/character.repository';
@@ -91,11 +91,31 @@ export class CharacterService {
     }
   }
 
-  async get_all_character(): Promise<object> {
+  async get_all_character(
+    sort_by: CharacterSort,
+    desc: number,
+  ): Promise<object> {
     try {
-      const all_characters = await this.characterRepo.find({
-        relations: ['location', 'episodes'],
-      });
+      let choose_character;
+
+      if (sort_by == CharacterSort.gender) {
+        choose_character = this.characterRepo.find({
+          relations: ['location', 'episodes'],
+          order: { gender: desc == 1 ? 'DESC' : 'ASC' },
+        });
+      } else if (sort_by == CharacterSort.name) {
+        choose_character = this.characterRepo.find({
+          relations: ['location', 'episodes'],
+          order: { firstName: desc == 1 ? 'DESC' : 'ASC' },
+        });
+      } else {
+        choose_character = this.characterRepo.find({
+          relations: ['location', 'episodes'],
+          order: { created_at: desc == 1 ? 'DESC' : 'ASC' },
+        });
+      }
+
+      const all_characters = await choose_character;
       return {
         status_code: 200,
         status: 'success',
@@ -123,10 +143,98 @@ export class CharacterService {
         status_code: 200,
         status: 'success',
         message: 'Character Successfully Fetched',
-        results: single_characters,
+        results: single_characters || {},
       };
     } catch (error) {
       this.logger.error('Get Single Character Service Failed ' + error);
+      return {
+        status_code: error.code || 500,
+        status: 'error',
+        message: error.message || 'System Error',
+        error: error.stack || error,
+      };
+    }
+  }
+
+  async add_episode_to_character(
+    character_id: number,
+    episode_id: number,
+  ): Promise<object> {
+    try {
+      const get_episode = await this.get_episode(episode_id);
+      if (!get_episode) {
+        return {
+          status_code: 500,
+          status: 'error',
+          message: 'Cant Find Episode',
+        };
+      }
+
+      const get_character = await this.get_character(character_id);
+      if (!get_character) {
+        return {
+          status_code: 500,
+          status: 'error',
+          message: 'Cant Find Character',
+        };
+      }
+
+      get_character.episodes = [...get_character.episodes, get_episode];
+
+      await get_character.save();
+      return {
+        status_code: 200,
+        status: 'success',
+        message: 'Successfully Added episode to Character',
+      };
+    } catch (error) {
+      this.logger.error('Add Episode To Character Service Failed ' + error);
+      return {
+        status_code: error.code || 500,
+        status: 'error',
+        message: error.message || 'System Error',
+        error: error.stack || error,
+      };
+    }
+  }
+
+  async remove_episode_to_character(
+    character_id: number,
+    episode_id: number,
+  ): Promise<object> {
+    try {
+      const get_episode = await this.get_episode(episode_id);
+      if (!get_episode) {
+        return {
+          status_code: 500,
+          status: 'error',
+          message: 'Cant Find Episode',
+        };
+      }
+
+      const get_character = await this.get_character(character_id);
+      if (!get_character) {
+        return {
+          status_code: 500,
+          status: 'error',
+          message: 'Cant Find Character',
+        };
+      }
+
+      const new_element = [...get_character.episodes].filter((element) => {
+        return element.id != get_episode.id;
+      });
+
+      get_character.episodes = new_element;
+
+      await get_character.save();
+      return {
+        status_code: 200,
+        status: 'success',
+        message: 'Successfully Removed episode to Character',
+      };
+    } catch (error) {
+      this.logger.error('Remove Episode To Character Service Failed ' + error);
       return {
         status_code: error.code || 500,
         status: 'error',
@@ -141,7 +249,13 @@ export class CharacterService {
   }
 
   async get_episode(episode_id: number): Promise<EpisodeEntity> {
-    return this.episoderepo.findOne(episode_id);
+    return this.episoderepo.findOne(episode_id, { relations: ['characters'] });
+  }
+
+  async get_character(character_id: number): Promise<CharacterEntity> {
+    return this.characterRepo.findOne(character_id, {
+      relations: ['episodes'],
+    });
   }
 
   //   async create_character_episode(

@@ -22,6 +22,11 @@ export enum CharacterGender {
   FEMALE = 'FEMALE',
 }
 
+export enum CharacterSort {
+  name = 'name',
+  gender = 'gender',
+}
+
 @Entity({ name: 'characters' })
 export class CharacterEntity extends RootEntity {
   @Column({ type: 'varchar', length: 300 })
@@ -40,15 +45,12 @@ export class CharacterEntity extends RootEntity {
   gender: string;
 
   @ManyToOne((type) => LocationEntity, (location) => location.characters, {
-    eager: false,
     cascade: false,
   })
   @JoinColumn({ referencedColumnName: 'id', name: 'location' })
   location: LocationEntity;
 
-  @ManyToMany(() => EpisodeEntity, (episode) => episode.characters, {
-    eager: true,
-  })
+  @ManyToMany(() => EpisodeEntity, (episode) => episode.characters)
   @JoinTable()
   episodes: EpisodeEntity[];
 }

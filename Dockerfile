@@ -17,7 +17,5 @@ COPY --chown=node:node . .
 # RUN npm run seed
 RUN npm run build
 
-WORKDIR /usr/app
-
 EXPOSE 3000
 CMD npm run start:prod

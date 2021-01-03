@@ -23,11 +23,11 @@ export const typeormConfig: TypeOrmModuleOptions = {
 
 export const typeormSeedConfig: TypeOrmModuleOptions = {
   type: dbConfig.type,
-  host: process.env.RDS_HOSTNAME || dbConfig.host,
-  port: process.env.RDS_PORT || dbConfig.port,
-  username: process.env.RDS_USERNAME || dbConfig.username,
-  password: process.env.RDS_PASSWORD || dbConfig.password,
-  database: process.env.RDS_DB_NAME || dbConfig.database,
+  host: process.env.MYSQL_HOST || dbConfig.host,
+  port: process.env.MYSQL_PORT || dbConfig.port,
+  username: process.env.MYSQL_USER || dbConfig.username,
+  password: process.env.MYSQL_PASS || dbConfig.password,
+  database: process.env.MYSQL_DB || dbConfig.database,
   entities: ['src/entity/**/*.entity{.ts,.js}'],
   migrations: ['src/migration/**/*{.ts,.js}'],
   migrationsTableName: 'migrations_typeorm',

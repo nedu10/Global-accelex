@@ -5,27 +5,32 @@ services:
       context: .
     image: kodened/global-accelerex-api
     networks:
-      - frontend
-      - backend
+      - global-accelerex
     environment:
       - MYSQL_HOST=ga-mysql-app
       - MYSQL_USER=gauser
       - MYSQL_PASS=gapass
+      - MYSQL_PORT=3306
       - MYSQL_DB=global-accelerex
     volumes:
-      - ./www/:/var/www/html/
+      - ./:/usr/app
+      # - usr/app/node_modules
+    depends_on:
+      - mysql
     ports:
       - "30001:3000"
     container_name: ga-nodejs-app
   mysql:
     image: mysql:5.7
     networks:
-      - backend
+      - global-accelerex
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_USER=gauser
       - MYSQL_PASSWORD=gapass 
       - MYSQL_DATABASE=global-accelerex
+    ports:
+      - "3306:3306"
     container_name: ga-mysql-app
   migration:
     image: kodened/global-accelerex-api:latest
@@ -35,7 +40,7 @@ services:
     depends_on:
       - mysql
     networks:
-      - backend
+      - global-accelerex
     ports:
       - "30002:80"
     environment:
@@ -45,5 +50,5 @@ services:
       - /sessions
     container_name: ga-phpmyadmin-app
 networks:
-  frontend:
-  backend:
+  global-accelerex:
+    driver: bridge

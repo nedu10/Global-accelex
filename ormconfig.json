@@ -8,10 +8,10 @@
     {
       "name": "development",
       "type": "mysql",
-      "host": "localhost",
+      "host": "ga-mysql-app",
       "port": 3306,
-      "username": "root",
-      "password": "",
+      "username": "gauser",
+      "password": "gapass",
       "database": "global-accelerex",
       "synchronize": false,
       "logging": true,

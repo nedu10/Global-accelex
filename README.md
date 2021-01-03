@@ -47,6 +47,29 @@ $ npm run start:prod
 $ npm run seed
 ```
 
+## Running the file with docker
+
+#requirement
+install docker and docker-compose global in you machine
+
+```bash
+# production
+
+$ run docker-compose up --build -d
+
+$ run docker exec npm run migration:generate
+
+$ run docker exec npm run migration:run
+
+$ run docker exec npm run seed
+
+```
+
+Note: The api port is exposed to 30001 why the database phpmyadmin is exposed to 30002
+
+db username is gauser
+db password is  gapass
+
 ## Test
 
 ```bash

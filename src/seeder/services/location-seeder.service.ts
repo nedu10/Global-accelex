@@ -19,7 +19,11 @@ export class LocationSeederService {
    */
   location_data: object[] = [
     { name: 'brazil', longitude: 14.235, latitude: 51.9253 },
-    { name: 'chinnry', longitude: 24.235, latitude: 71.9253 },
+    { name: 'Nigeria', longitude: 24.235, latitude: 71.9253 },
+    { name: 'India', longitude: 90.235, latitude: 6.9253 },
+    { name: 'Cameroon', longitude: 39.235, latitude: 12.9253 },
+    { name: 'Ghana', longitude: 17.235, latitude: 55.9253 },
+    { name: 'England', longitude: 2.235, latitude: 7.9253 },
   ];
   constructor(
     @InjectRepository(LocationEntity)

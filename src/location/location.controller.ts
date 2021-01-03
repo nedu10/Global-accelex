@@ -5,7 +5,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateLocationDto } from 'src/dto/create-location.dto';
+import { CreateLocationDto } from '../dto/create-location.dto';
 import { LocationService } from './location.service';
 
 @Controller('location')

@@ -8,7 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateEpisodeDto } from 'src/dto/create-episode.dto';
+import { CreateEpisodeDto } from '../dto/create-episode.dto';
 import { EpisodeService } from './episode.service';
 
 @Controller('episode')

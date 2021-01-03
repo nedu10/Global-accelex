@@ -8,7 +8,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateCommentDto } from 'src/dto/create-comment.dto';
+import { CreateCommentDto } from '../dto/create-comment.dto';
 import { CommentService } from './comment.service';
 
 @Controller('comment')

@@ -1,4 +1,4 @@
-import { CharacterEntity } from 'src/entity/character.entity';
+import { CharacterEntity } from '../entity/character.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(CharacterEntity)

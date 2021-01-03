@@ -1,10 +1,10 @@
 import { HttpService, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCommentDto } from 'src/dto/create-comment.dto';
-import { CommentEntity } from 'src/entity/comment.entity';
-import { EpisodeEntity } from 'src/entity/episode.entity';
-import { CommentRepository } from 'src/repository/comment.repository';
-import { EpisodeRepository } from 'src/repository/episode.repository';
+import { CreateCommentDto } from '../dto/create-comment.dto';
+import { CommentEntity } from '../entity/comment.entity';
+import { EpisodeEntity } from '../entity/episode.entity';
+import { CommentRepository } from '../repository/comment.repository';
+import { EpisodeRepository } from '../repository/episode.repository';
 
 @Injectable()
 export class CommentService {

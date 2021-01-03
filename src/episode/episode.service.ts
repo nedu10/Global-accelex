@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateEpisodeDto } from 'src/dto/create-episode.dto';
-import { CharacterRepository } from 'src/repository/character.repository';
-import { EpisodeRepository } from 'src/repository/episode.repository';
+import { CreateEpisodeDto } from '../dto/create-episode.dto';
+import { CharacterRepository } from '../repository/character.repository';
+import { EpisodeRepository } from '../repository/episode.repository';
 
 @Injectable()
 export class EpisodeService {

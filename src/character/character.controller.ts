@@ -9,8 +9,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateCharacterDto } from 'src/dto/create-character.dto';
-import { CharacterSort } from 'src/entity/character.entity';
+import { CreateCharacterDto } from '../dto/create-character.dto';
+import { CharacterSort } from '../entity/character.entity';
 import { CharacterService } from './character.service';
 
 @Controller('character')

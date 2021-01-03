@@ -1,4 +1,4 @@
-import { LocationEntity } from 'src/entity/location.entity';
+import { LocationEntity } from '../entity/location.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(LocationEntity)

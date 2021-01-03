@@ -1,12 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateCharacterDto } from 'src/dto/create-character.dto';
-import { CharacterEntity, CharacterSort } from 'src/entity/character.entity';
-import { EpisodeEntity } from 'src/entity/episode.entity';
-import { LocationEntity } from 'src/entity/location.entity';
-import { CharacterRepository } from 'src/repository/character.repository';
-import { EpisodeRepository } from 'src/repository/episode.repository';
-import { LocationRepository } from 'src/repository/location.repository';
+import { CreateCharacterDto } from '../dto/create-character.dto';
+import { CharacterEntity, CharacterSort } from '../entity/character.entity';
+import { EpisodeEntity } from '../entity/episode.entity';
+import { LocationEntity } from '../entity/location.entity';
+import { CharacterRepository } from '../repository/character.repository';
+import { EpisodeRepository } from '../repository/episode.repository';
+import { LocationRepository } from '../repository/location.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()

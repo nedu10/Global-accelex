@@ -1,5 +1,5 @@
-import { CreateEpisodeDto } from 'src/dto/create-episode.dto';
-import { EpisodeEntity } from 'src/entity/episode.entity';
+import { CreateEpisodeDto } from '../dto/create-episode.dto';
+import { EpisodeEntity } from '../entity/episode.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 @EntityRepository(EpisodeEntity)

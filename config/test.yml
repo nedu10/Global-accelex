@@ -1,0 +1,9 @@
+db:
+  host: 'localhost'
+  username: 'root'
+  password: ''
+  synchronize: false
+  database: 'global-accelerex-test'
+
+jwt:
+  secret: 'GlobalAccelerexSecret'

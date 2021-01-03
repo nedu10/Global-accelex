@@ -1,7 +1,7 @@
 import {MigrationInterface, QueryRunner} from "typeorm";
 
-export class MigrationFile1609443517977 implements MigrationInterface {
-    name = 'MigrationFile1609443517977'
+export class MigrationFile1609688696136 implements MigrationInterface {
+    name = 'MigrationFile1609688696136'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query("ALTER TABLE `locations` CHANGE `created_at` `created_at` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP");

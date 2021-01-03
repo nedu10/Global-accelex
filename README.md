@@ -17,6 +17,16 @@ Global Accelerex Test API. Official documentation is <a href="http://127.0.0.1:3
 $ npm install
 ```
 
+## Running app migrations
+
+```bash
+# generate migration
+$ npm run migration:generate
+
+# run migration
+$  npm run migration:run
+```
+
 ## Running the app
 
 ```bash

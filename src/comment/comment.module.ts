@@ -2,8 +2,8 @@ import { HttpModule, Logger, Module } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentController } from './comment.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CommentRepository } from 'src/repository/comment.repository';
-import { EpisodeRepository } from 'src/repository/episode.repository';
+import { CommentRepository } from '../repository/comment.repository';
+import { EpisodeRepository } from '../repository/episode.repository';
 
 @Module({
   imports: [
